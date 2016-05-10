@@ -35,7 +35,7 @@ function loadScore(modules, callback) {
     } else if (!modules) {
         modules = [];
     }
-    var urls = ['../_base.js'];
+    var urls = ['../init.js'];
     for (var i = 0; i < modules.length; i++) {
         var module = modules[i];
         urls.push('../' + module.replace('.', '/') + '.js');
@@ -56,7 +56,7 @@ function loadScoreWithRequireJs(modules, callback) {
         for (var i = 0; i < modules.length; i++) {
             modules[i] = modules[i].replace('.', '/');
         }
-        modules.splice(0, 0, '_base');
+        modules.splice(0, 0, 'init');
         require.config({baseUrl: "../"});
         require(modules, function(score) {
             require = undefined;

@@ -1,7 +1,7 @@
 if (typeof loadScore === 'undefined') {
     var loadScore = function(callback) {
-        var score = require('../_base.js');
-        delete require.cache[require.resolve('../_base.js')];
+        var score = require('../init.js');
+        delete require.cache[require.resolve('../init.js')];
         callback(score);
     };
 }
