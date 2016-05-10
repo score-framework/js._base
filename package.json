@@ -1,0 +1,32 @@
+{
+  "name": "score.init",
+  "version": "0.0.1",
+  "description": "Initializer for the javascript part of The SCORE Framework.",
+  "main": "init.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/score-framework/js.init.git"
+  },
+  "keywords": [
+    "score",
+    "framework",
+    "init",
+    "module"
+  ],
+  "author": "strg.at <score@strg.at>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/score-framework/js.init/issues"
+  },
+  "homepage": "https://github.com/score-framework/js.init#readme",
+  "devDependencies": {
+      "mocha": "2.x.x",
+      "expect.js": "0.3.x"
+  }
+}

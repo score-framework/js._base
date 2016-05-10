@@ -4,9 +4,6 @@ if (typeof loadScore === 'undefined') {
         delete require.cache[require.resolve('../init.js')];
         callback(score);
     };
-}
-
-if (typeof expect === 'undefined') {
     var expect = require('expect.js');
 }
 
