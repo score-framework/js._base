@@ -40,17 +40,18 @@
         module.exports = factory();
     } else {
         // Browser globals (root is window)
-        var old = root.score, oldExists = Object.hasOwnProperty(root, 'score');
-        root.score = factory();
-        root.score.noConflict = function() {
-            var tmp = root.score;
-            if (oldExists) {
-                root.score = old;
-            } else {
-                delete root.score;
-            }
-            return tmp;
+        var old = root.score, score = factory();
+        score.noConflict = function() {
+            root.score = old;
+            // setting old to something else to allow it to be
+            // garbage-collected (we don't need it any more)
+            old = score;
+            score.noConflict = function() {
+                return score;
+            };
+            return score;
         };
+        root.score = score;
     }
 })(this, function() {
 

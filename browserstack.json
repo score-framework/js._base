@@ -1,0 +1,7 @@
+{
+    "test_framework" : "mocha",
+    "test_path": "test/index.html",
+    "browsers": [
+        "firefox_previous"
+    ]
+}
