@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "$(node -e \"console.log(require('path').dirname(require.resolve('mocha')) + '/bin/mocha')\")"
   },
   "repository": {
     "type": "git",
