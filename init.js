@@ -57,6 +57,8 @@
 
     var __queue = [], score = {
 
+        __version__: '0.0.2',
+
         extend: function(fullName, dependencies, callback) {
             var i, j, tmp, nextName, parts, currentPart, nextPart, missing = [];
             for (i = 0; i < dependencies.length; i++) {
