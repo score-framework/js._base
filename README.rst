@@ -1,3 +1,6 @@
+.. image:: https://raw.githubusercontent.com/score-framework/py.doc/master/docs/score-banner.png
+    :target: http://score-framework.org
+
 `The SCORE Framework`_ is a collection of harmonized python and javascript
 libraries for the development of large scale web projects. Powered by strg.at_.
 
@@ -11,9 +14,135 @@ score.init
 
 .. _js_init:
 
-Initializer for the javascript part of The SCORE Framework.
+This is the base module providing initialization helpers for all other modules.
+It does exactly *nothing* on its own, except providing a function *extend*,
+that can be used to, well, extend the originally useless object.
 
-This module is a work in progress, thus currently poorly documented :-/
+Quickstart
+==========
+
+Browser
+-------
+
+Just make sure this module is loaded before all other score modules:
+
+.. code-block:: html
+
+    <script src="score.init.js"></script>
+    <script src="score.dom.js"></script>
+    <script>
+        score.dom('body').addClass('spam');
+    </script>
+
+With require.js_
+""""""""""""""""
+
+.. code-block:: html
+
+    <script src="require.js"></script>
+    <script>
+        require(['score.init', 'score.dom'], function(score) {
+            score.dom('body').addClass('spam');
+        });
+    </script>
+
+It is recommended to ``define()`` score with all its modules under a single URL
+to make things more convenient:
+
+.. code-block:: javascript
+
+    // in score.js
+    define(['score.init', 'score.dom'], function(score) {
+        return score;
+    });
+
+.. code-block:: html
+
+    <!-- in index.html -->
+    <script src="require.js"></script>
+    <script>
+        require(['score'], function(score) {
+            score.dom('body').addClass('spam');
+        });
+    </script>
+
+.. _require.js: http://requirejs.org/
+
+
+Node.js_
+--------
+
+.. code-block:: javascript
+
+    var score = require('score.init'); require('score.oop');
+    score.oop.Class({
+        __name__: 'Bird'.
+    });
+
+.. _Node.js: https://nodejs.org/
+
+Details
+=======
+
+Extending
+---------
+
+Adding modules to *score* is as simple as calling *extend()*:
+
+.. code-block:: html
+
+    <script src="score.init.js"></script>
+    <script>
+        score.extend('spam', [], function(score) {
+            return function() {
+                alert('spam!');
+            };
+        });
+        score.spam(); // will show an alert with the text 'spam!'
+    </script>
+
+The second parameter (the empty array), is a list of dependencies. If your
+module need another module, it will not be available until all dependencies
+were loaded:
+
+.. code-block:: html
+
+    <script src="score.init.js"></script>
+    <script>
+        score.extend('knight', ['swallow'], function(score) {
+            // ...
+        });
+        try {
+            score.knight; // This will throw an Error if the modules 'swallow'
+                          // and 'coconut' were not loaded yet.
+        } catch (e) {
+        }
+        score.extend('swallow', [], function(score) {
+            // ...
+        });
+        score.knight; // The module is now available, as all dependencies were
+                      // loaded
+    </script>
+
+This behaviour has the effect, that you only need to make sure, that
+``score.init`` is loaded before any other score modules. The loading order of
+the other libraries become irrelevant. This is important when using score in
+the browser without require.js.
+
+noConflict()
+------------
+
+It is possible, to remove the score variable from the global scope by using its
+``noConflict()`` function:
+
+.. code-block:: html
+
+    <script>
+        (function(score) {
+            // do something with score
+        })(score.noConflict());
+        // the score variable no longer exists
+    </script>
 
 
 License
