@@ -35,7 +35,7 @@ Just make sure this module is loaded before all other score modules:
     </script>
 
 With require.js_
-""""""""""""""""
+^^^^^^^^^^^^^^^^
 
 .. code-block:: html
 
@@ -113,20 +113,20 @@ were loaded:
             // ...
         });
         try {
-            score.knight; // This will throw an Error if the modules 'swallow'
-                          // and 'coconut' were not loaded yet.
+            score.knight; // This will throw an Error, since the module
+                          // 'swallow' was not loaded yet.
         } catch (e) {
         }
         score.extend('swallow', [], function(score) {
             // ...
         });
-        score.knight; // The module is now available, as all dependencies were
-                      // loaded
+        score.knight; // The module is now available, as all dependencies
+                      // were loaded
     </script>
 
 This behaviour has the effect, that you only need to make sure, that
 ``score.init`` is loaded before any other score modules. The loading order of
-the other libraries become irrelevant. This is important when using score in
+the other modules become irrelevant. This is important when using score in
 the browser without require.js.
 
 noConflict()
