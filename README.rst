@@ -14,6 +14,9 @@ score.init
 
 .. _js_init:
 
+.. image:: https://travis-ci.org/score-framework/js.init.svg?branch=master
+    :target: https://travis-ci.org/score-framework/js.init
+
 This is the base module providing initialization helpers for all other modules.
 It does exactly *nothing* on its own, except providing a function *extend*,
 that can be used to, well, extend the originally useless object.
@@ -143,6 +146,17 @@ It is possible, to remove the score variable from the global scope by using its
         })(score.noConflict());
         // the score variable no longer exists
     </script>
+
+
+Acknowledgments
+===============
+
+Many thanks to BrowserStack_ and `Travis CI`_ for providing automated tests for
+our open source projects! We wouldn't be able to maintain our high quality
+standards without them!
+
+.. _BrowserStack: https://www.browserstack.com
+.. _Travis CI: https://travis-ci.org/
 
 
 License
