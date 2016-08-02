@@ -96,18 +96,18 @@
             nextName = parts[j];
             if (missing.length) {
                 __queue.push([fullName, dependencies, callback]);
-                tmp = {};
-                tmp[nextName] = {
-                    configurable: true,
-                    get: function() {
-                        throw new Error('Missing ' + fullName + ' dependencies: [' + missing.join(', ') + ']');
-                    },
-                    set: function(value) {
-                        tmp[nextName] = {value: value, enumerable: true};
-                        Object.defineProperties(currentPart, tmp);
-                    }
-                };
                 if (Object.defineProperties) {
+                    tmp = {};
+                    tmp[nextName] = {
+                        configurable: true,
+                        get: function() {
+                            throw new Error('Missing ' + fullName + ' dependencies: [' + missing.join(', ') + ']');
+                        },
+                        set: function(value) {
+                            tmp[nextName] = {value: value, enumerable: true};
+                            Object.defineProperties(currentPart, tmp);
+                        }
+                    };
                     Object.defineProperties(currentPart, tmp);
                 }
             } else {
