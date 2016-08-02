@@ -2,15 +2,13 @@ function loadScript(url, callback) {
     var maxTimeout, ieTimeout, iePoller, script = document.createElement('script');
     script.onload = function() {
         script.onload = function() {};
-        if (script.parentNode) {
-            script.parentNode.removeChild(script);
-        }
+        script.parentNode.removeChild(script);
         window.clearTimeout(maxTimeout);
         window.clearTimeout(ieTimeout);
         callback();
     };
-    script.setAttribute('type', 'text/javascript');
-    script.setAttribute('src', url);
+    script.src = url;
+    document.body.appendChild(script);
     iePoller = function() {
         if (script.readyState == 'loaded' || script.readyState == 'complete') {
             script.onload();
@@ -19,11 +17,6 @@ function loadScript(url, callback) {
         }
     };
     iePoller();
-    if (document.head) {
-        document.head.appendChild(script);
-    } else {
-        document.body.appendChild(script);
-    }
     maxTimeout = window.setTimeout(function() {
         throw new Error('Failed to load script: ' + url);
     }, 1000);
@@ -48,10 +41,10 @@ function loadScore(modules, callback) {
     } else if (!modules) {
         modules = [];
     }
-    var urls = ['../init.js'];
+    var urls = ['../init.js?_=' + new Date().getTime()];
     for (var i = 0; i < modules.length; i++) {
         var module = modules[i];
-        urls.push('../' + module.replace('.', '/') + '.js');
+        urls.push('../' + module.replace('.', '/') + '.js?_=' + new Date().getTime());
     }
     loadScripts(urls, function() {
         callback(score.noConflict());
