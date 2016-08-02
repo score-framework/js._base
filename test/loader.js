@@ -1,19 +1,32 @@
 function loadScript(url, callback) {
-    var timeout, script = document.createElement('script');
+    var maxTimeout, ieTimeout, iePoller, script = document.createElement('script');
     script.onload = function() {
-        script.parentNode.removeChild(script);
-        if (window && typeof window.clearTimeout === 'function') {
-            window.clearTimeout(timeout);
+        script.onload = function() {};
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
         }
+        window.clearTimeout(maxTimeout);
+        window.clearTimeout(ieTimeout);
         callback();
     };
-    script.src = url;
-    document.head.appendChild(script);
-    if (window && typeof window.setTimeout === 'function') {
-        timeout = window.setTimeout(function() {
-            throw new Error('Failed to load script: ' + url);
-        }, 1000);
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', url);
+    iePoller = function() {
+        if (script.readyState == 'loaded' || script.readyState == 'complete') {
+            script.onload();
+        } else {
+            ieTimeout = window.setTimeout(iePoller, 10);
+        }
+    };
+    iePoller();
+    if (document.head) {
+        document.head.appendChild(script);
+    } else {
+        document.body.appendChild(script);
     }
+    maxTimeout = window.setTimeout(function() {
+        throw new Error('Failed to load script: ' + url);
+    }, 1000);
 }
 
 function loadScripts(urls, callback) {

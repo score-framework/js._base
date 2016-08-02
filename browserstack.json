@@ -8,10 +8,33 @@
         "chrome_latest",
         "safari_previous",
         "safari_latest",
-        "opera_previous",
         "opera_latest",
-        "ie_previous",
-        "ie_latest",
+        {
+            "project": "score.init",
+            "browserstack.video": false,
+            "browser": "ie",
+            "browser_version": "9.0",
+            "device": null,
+            "os": "Windows",
+            "os_version": "7"
+        },
+        {
+            "project": "score.init",
+            "browserstack.video": false,
+            "browser": "ie",
+            "browser_version": "10.0",
+            "device": null,
+            "os": "Windows",
+            "os_version": "8"
+        },
+        {
+            "project": "score.init",
+            "browserstack.video": false,
+            "browser": "ie",
+            "browser_version": "11.0",
+            "device": null,
+            "os": "Windows"
+        },
         "edge_latest"
     ]
 }

@@ -107,7 +107,9 @@
                         Object.defineProperties(currentPart, tmp);
                     }
                 };
-                Object.defineProperties(currentPart, tmp);
+                if (Object.defineProperties) {
+                    Object.defineProperties(currentPart, tmp);
+                }
             } else {
                 currentPart[nextName] = callback.call(score, score);
                 tmp = __queue;

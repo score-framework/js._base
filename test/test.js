@@ -4,7 +4,7 @@ if (typeof loadScore === 'undefined') {
         delete require.cache[require.resolve('../init.js')];
         callback(score);
     };
-    var expect = require('expect.js');
+    expect = require('expect.js');
 }
 
 describe('loadScore', function() {
@@ -42,53 +42,69 @@ describe('score', function() {
 
         it("should not load modules with missing dependencies", function(done) {
             loadScore(function(score) {
-                expect(score.foo).to.be(undefined);
-                score.extend('foo', ['bar'], function(score) {
-                    expect().fail("Module loaded without dependencies");
+                try {
+                    expect(score.foo).to.be(undefined);
+                    score.extend('foo', ['bar'], function(score) {
+                        expect().fail("Module loaded without dependencies");
+                    });
+                    if (Object.defineProperties) {
+                        expect(function() { var x = score.foo; }).to.throwError();
+                    }
                     done();
-                });
-                expect(function() { var x = score.foo; }).to.throwError();
-                done();
+                } catch (e) {
+                    done(e);
+                }
             });
         });
 
         it("should be able to handle nested modules", function(done) {
             loadScore(function(score) {
-                expect(score.foo).to.be(undefined);
-                var barLoaded = false;
-                var fooBarLoaded = false;
-                score.extend('foo', ['bar'], function(score) {
-                    expect(barLoaded).to.be(true);
-                    expect(fooBarLoaded).to.be(false);
-                    expect(score.bar).to.be('frobination');
-                    fooBarLoaded = true;
-                    return 81;
-                });
-                expect(function() { var x = score.foo; }).to.throwError();
-                expect(barLoaded).to.be(false);
-                expect(fooBarLoaded).to.be(false);
-                score.extend('bar', [], function(score) {
+                try {
+                    expect(score.foo).to.be(undefined);
+                    var barLoaded = false;
+                    var fooBarLoaded = false;
+                    score.extend('foo', ['bar'], function(score) {
+                        expect(barLoaded).to.be(true);
+                        expect(fooBarLoaded).to.be(false);
+                        expect(score.bar).to.be('frobination');
+                        fooBarLoaded = true;
+                        return 81;
+                    });
+                    if (Object.defineProperties) {
+                        expect(function() { var x = score.foo; }).to.throwError();
+                    }
                     expect(barLoaded).to.be(false);
                     expect(fooBarLoaded).to.be(false);
-                    barLoaded = true;
-                    return 'frobination';
-                });
-                expect(barLoaded).to.be(true);
-                expect(fooBarLoaded).to.be(true);
-                expect(score.foo).to.equal(81);
-                done();
+                    score.extend('bar', [], function(score) {
+                        expect(barLoaded).to.be(false);
+                        expect(fooBarLoaded).to.be(false);
+                        barLoaded = true;
+                        return 'frobination';
+                    });
+                    expect(barLoaded).to.be(true);
+                    expect(fooBarLoaded).to.be(true);
+                    expect(score.foo).to.equal(81);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             });
         });
 
         it("should wait for parent modules before loading submodules", function(done) {
             loadScore(function(score) {
-                expect(score.foo).to.be(undefined);
-                score.extend('foo.bar', [], function(score2) {
-                    expect().fail("Module loaded without dependencies");
+                try {
+                    expect(score.foo).to.be(undefined);
+                    score.extend('foo.bar', [], function(score2) {
+                        expect().fail("Module loaded without dependencies");
+                    });
+                    if (Object.defineProperties) {
+                        expect(function() { var x = score.foo; }).to.throwError();
+                    }
                     done();
-                });
-                expect(function() { var x = score.foo; }).to.throwError();
-                done();
+                } catch (e) {
+                    done(e);
+                }
             });
         });
 
