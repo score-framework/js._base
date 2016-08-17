@@ -1,10 +1,7 @@
-if (typeof loadScore === 'undefined') {
-    loadScore = function(callback) {
-        var score = require('../init.js');
-        delete require.cache[require.resolve('../init.js')];
-        callback(score);
-    };
-    expect = require('expect.js');
+if (typeof loadScore == 'undefined') {
+    var tmp = require('./node.js');
+    loadScore = tmp.loadScore;
+    expect = tmp.expect;
 }
 
 describe('loadScore', function() {
