@@ -1,5 +1,5 @@
 if (typeof loadScore == 'undefined') {
-    var tmp = require('./node.js');
+    var tmp = require('./test/node.js');
     loadScore = tmp.loadScore;
     expect = tmp.expect;
 }
