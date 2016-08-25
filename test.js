@@ -44,9 +44,7 @@ describe('score', function() {
                     score.extend('foo', ['bar'], function(score) {
                         expect().fail("Module loaded without dependencies");
                     });
-                    if (Object.defineProperties) {
-                        expect(function() { var x = score.foo; }).to.throwError();
-                    }
+                    expect(function() { var x = score.foo; }).to.throwError();
                     done();
                 } catch (e) {
                     done(e);
@@ -67,9 +65,7 @@ describe('score', function() {
                         fooBarLoaded = true;
                         return 81;
                     });
-                    if (Object.defineProperties) {
-                        expect(function() { var x = score.foo; }).to.throwError();
-                    }
+                    expect(function() { var x = score.foo; }).to.throwError();
                     expect(barLoaded).to.be(false);
                     expect(fooBarLoaded).to.be(false);
                     score.extend('bar', [], function(score) {
@@ -95,9 +91,7 @@ describe('score', function() {
                     score.extend('foo.bar', [], function(score2) {
                         expect().fail("Module loaded without dependencies");
                     });
-                    if (Object.defineProperties) {
-                        expect(function() { var x = score.foo; }).to.throwError();
-                    }
+                    expect(function() { var x = score.foo; }).to.throwError();
                     done();
                 } catch (e) {
                     done(e);
