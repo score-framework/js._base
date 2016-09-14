@@ -7,6 +7,8 @@
     "test": "test"
   },
   "scripts": {
+    "pretest":"[[ -f \"test/index.html\" ]] || (git submodule init && echo \" ==> Tests set up\";echo);git submodule update",
+    "preinstall": "git submodule init",
     "test": "$(node -e \"console.log(require('path').dirname(require.resolve('mocha')) + '/bin/mocha')\")"
   },
   "repository": {
@@ -26,7 +28,8 @@
   },
   "homepage": "https://github.com/score-framework/js.init#readme",
   "devDependencies": {
-      "mocha": "2.x.x",
-      "expect.js": "0.3.x"
+    "expect.js": "0.3.x",
+    "mocha": "2.x.x",
+    "sync-request": "^3.0.1"
   }
 }
