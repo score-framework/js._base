@@ -116,6 +116,7 @@
                     score.extend.apply(this, tmp[i]);
                 }
             }
+            return score;
         }
 
     };
