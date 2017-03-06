@@ -28,8 +28,8 @@ describe('score', function() {
         it('should assign return value to score', function(done) {
             loadScore(function(score) {
                 expect(score.foo).to.be(undefined);
-                score.extend('foo', [], function(score2) {
-                    expect(score).to.equal(score2);
+                score.extend('foo', [], function() {
+                    expect(this).to.equal(score);
                     return 81;
                 });
                 expect(score.foo).to.equal(81);
@@ -58,10 +58,10 @@ describe('score', function() {
                     expect(score.foo).to.be(undefined);
                     var barLoaded = false;
                     var fooBarLoaded = false;
-                    score.extend('foo', ['bar'], function(score) {
+                    score.extend('foo', ['bar'], function(bar) {
                         expect(barLoaded).to.be(true);
                         expect(fooBarLoaded).to.be(false);
-                        expect(score.bar).to.be('frobination');
+                        expect(bar).to.be('frobination');
                         fooBarLoaded = true;
                         return 81;
                     });

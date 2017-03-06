@@ -60,7 +60,7 @@
         __version__: '0.0.3',
 
         extend: function(fullName, dependencies, callback) {
-            var i, j, tmp, nextName, parts, currentPart, nextPart, missing = [];
+            var i, j, tmp, nextName, parts, currentPart, nextPart, args = [], missing = [];
             for (i = 0; i < dependencies.length; i++) {
                 parts = dependencies[i].split('.');
                 currentPart = score;
@@ -77,6 +77,7 @@
                     }
                     currentPart = nextPart;
                 }
+                args.push(currentPart);
             }
             currentPart = score;
             parts = fullName.split('.');
@@ -109,7 +110,7 @@
                 };
                 Object.defineProperties(currentPart, tmp);
             } else {
-                currentPart[nextName] = callback.call(score, score);
+                currentPart[nextName] = callback.apply(score, args);
                 tmp = __queue;
                 __queue = [];
                 for (i = 0; i < tmp.length; i++) {
