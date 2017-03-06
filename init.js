@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015,2016 STRG.AT GmbH, Vienna, Austria
+ * Copyright © 2015-2017 STRG.AT GmbH, Vienna, Austria
  *
  * This file is part of the The SCORE Framework.
  *
@@ -57,7 +57,7 @@
 
     var __queue = [], score = {
 
-        __version__: '0.0.3',
+        __version__: '0.1.0',
 
         extend: function(fullName, dependencies, callback) {
             var i, j, tmp, nextName, parts, currentPart, nextPart, args = [], missing = [];
